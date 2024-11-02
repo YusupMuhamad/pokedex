@@ -1,6 +1,6 @@
 <h1>Website Pokedex</h1>
-<h3>Credit: PokeAPI/</h3>
-<p>Link: https://pokeapi.co</p>
+<h3>Credit: PokeAPI</h3>
+<p>Link: https://pokeapi.co/</p>
 
 <p>Fitur</p>
 <ul>
