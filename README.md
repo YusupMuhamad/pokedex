@@ -13,6 +13,3 @@
 </ul>
 
 <h3>Website masih dalam tahap perkembangan</h3>
-
-<h3>Screenshot</h3>
-![image](https://github.com/user-attachments/assets/36b85973-46ea-41d0-b52c-8f8de1e31ce7)
