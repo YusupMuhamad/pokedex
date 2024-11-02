@@ -1,0 +1,469 @@
+#pokemon-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.no-pokemon{
+  margin-top: 13em;
+}
+
+.pokemon-item {
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  width: 120px;
+  background-color: #f8f8f8;
+}
+
+.pokemon-item img {
+  width: 100px;
+  height: 100px;
+}
+
+.pokemon-type {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 12px;
+  margin: 2px;
+}
+
+.pokemon-type.grass {
+  background-color: #78c850;
+}
+.pokemon-type.water {
+  background-color: #6890f0;
+}
+.pokemon-type.fire {
+  background-color: #f08030;
+}
+.pokemon-type.electric {
+  background-color: #f8d030;
+}
+.pokemon-type.ice {
+  background-color: #98d8d8;
+}
+.pokemon-type.fighting {
+  background-color: #c03028;
+}
+.pokemon-type.poison {
+  background-color: #a040a0;
+}
+.pokemon-type.ground {
+  background-color: #e0c068;
+}
+.pokemon-type.flying {
+  background-color: #a890f0;
+}
+.pokemon-type.psychic {
+  background-color: #f85888;
+}
+.pokemon-type.bug {
+  background-color: #a8b820;
+}
+.pokemon-type.rock {
+  background-color: #b8a038;
+}
+.pokemon-type.ghost {
+  background-color: #705898;
+}
+.pokemon-type.dark {
+  background-color: #705848;
+}
+.pokemon-type.dragon {
+  background-color: #7038f8;
+}
+.pokemon-type.steel {
+  background-color: #b8b8d0;
+}
+.pokemon-type.fairy {
+  background-color: #ee99ac;
+}
+.normal {
+  background-color: #a8a878;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f2f2f2;
+}
+
+h1 {
+  color: #333;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+/* Navbar Styles */
+.navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #333; /* Ganti dengan warna sesuai kebutuhan */
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.2); /* Bayangan untuk efek visual */
+  z-index: 100; /* Pastikan navbar di atas elemen lain */
+}
+
+.navbar ul {
+  list-style: none; /* Menghilangkan bullet points */
+  padding: 0;
+  margin: 0;
+}
+
+.navbar li {
+  display: inline; /* Menampilkan item di samping satu sama lain */
+  margin: 0 15px; /* Ruang antar item */
+}
+
+.navbar a {
+  color: white; /* Warna teks */
+  text-decoration: none; /* Menghilangkan garis bawah */
+  font-weight: bold; /* Menebalkan teks */
+}
+
+.navbar a:hover {
+  text-decoration: underline; /* Garis bawah saat hover */
+}
+
+/* Scroll to Top Button Styles */
+.scroll-to-top {
+  position: fixed;
+  bottom: 30px; /* Jarak dari bawah */
+  right: 20px; /* Jarak dari kanan */
+  display: none; /* Mulai dengan tersembunyi */
+  background-color: #333; /* Ganti dengan warna sesuai kebutuhan */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 18px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, transform 0.3s; /* Efek transisi */
+}
+
+.scroll-to-top:hover {
+  background-color: #555; /* Ganti warna saat hover */
+  transform: scale(1.1); /* Efek pembesaran saat hover */
+}
+
+
+
+/* Search bar styling */
+#search-input {
+  padding: 10px;
+  width: 250px;
+  font-size: 1em;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: border-color 0.3s;
+  margin-bottom: 20px;
+}
+
+#search-input:focus {
+  border-color: #6890f0;
+  box-shadow: 0 0 8px rgba(104, 144, 240, 0.3);
+}
+
+/* Button styling */
+button {
+  padding: 10px 20px;
+  margin: 20px 5px;
+  font-size: 1em;
+  font-weight: bold;
+  color: #fff;
+  background-color: #6890f0;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #507ac6;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Gaya untuk modal */
+.modal {
+  display: none; /* Secara default disembunyikan */
+  position: fixed;
+  z-index: 1000; /* Di atas elemen lain */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Jika konten lebih besar dari modal */
+  background-color: rgba(0, 0, 0, 0.7); /* Latar belakang gelap dengan transparansi */
+}
+
+/* Konten modal */
+.modal-content {
+  background-color: #fefefe;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Lebar modal */
+  max-width: 600px; /* Lebar maksimum */
+  border-radius: 10px; /* Sudut membulat */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Bayangan */
+}
+
+/* Tombol close */
+.close-button {
+  color: #aaa;
+  float: right; /* Posisikan di sudut kanan atas */
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: black; /* Ubah warna saat hover */
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#modal-pokemon-id {
+  display: block; /* Tampilkan sebagai blok */
+  text-align: center;
+  font-size: large;
+}
+
+/* Nama Pokémon */
+#modal-pokemon-name {
+  font-size: 1.5em;
+  text-align: center; /* Pusatkan teks */
+  margin-bottom: 10px;
+}
+
+/* Gambar Pokémon */
+#modal-pokemon-image {
+  display: block; /* Tampilkan sebagai blok */
+  margin: 0 auto; /* Pusatkan gambar */
+  width: 150px; /* Lebar gambar */
+  height: 150px; /* Tinggi gambar */
+}
+
+/* Tipe Pokémon */
+#modal-pokemon-types {
+  text-align: center; /* Pusatkan teks */
+  margin-bottom: 15px;
+}
+
+h3 {
+  margin-top: 20px; /* Jarak atas */
+}
+
+/* Evolusi Pokémon */
+#modal-pokemon-evolutions {
+  display: flex;
+  flex-wrap: wrap; /* Membuat evolusi mengalir jika terlalu banyak */
+  justify-content: center; /* Pusatkan konten dalam baris */
+  gap: 10px; /* Jarak antar evolusi */
+}
+
+#modal-pokemon-evolutions img {
+  width: 100px; /* Ukuran gambar evolusi */
+  height: 100px; /* Ukuran gambar evolusi */
+  border-radius: 8px; /* Sudut membulat untuk gambar evolusi */
+}
+
+.evolution-name {
+  font-weight: bold; /* Menebalkan teks */
+  font-size: 16px; /* Ukuran font */
+  color: #ffcc00; /* Warna teks */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6); /* Memberikan bayangan pada teks */
+}
+
+
+/* Styling untuk statistik Pokémon */
+.stat-item {
+  display: flex; /* Gunakan flexbox untuk susun horizontal */
+  justify-content: space-between; /* Jarak antara nama dan nilai */
+  background-color: #e7f3ff; /* Warna latar belakang yang lembut */
+  border: 1px solid #b3d4fc; /* Garis batas */
+  border-radius: 8px; /* Sudut membulat */
+  padding: 10px; /* Ruang dalam */
+  margin: 5px 0; /* Jarak antar item */
+}
+
+.stat-name {
+  font-weight: bold; /* Nama statistik tebal */
+  color: #1a73e8; /* Warna untuk nama statistik */
+}
+
+.stat-value {
+  color: #333; /* Warna untuk nilai statistik */
+  font-size: 1.1em; /* Ukuran font sedikit lebih besar */
+}
+
+/* Styling untuk daftar moves Pokémon */
+#modal-pokemon-moves {
+  list-style-type: none; /* Hilangkan bullet pada list */
+  padding: 0; /* Hapus padding default */
+}
+
+.move-item {
+  display: flex; /* Menggunakan flexbox */
+  justify-content: space-between; /* Memisahkan nama move dan tipe */
+  align-items: center; /* Vertikal align */
+  background-color: #f0f8ff; /* Warna latar belakang lembut */
+  border: 1px solid #aeeeee; /* Garis batas */
+  border-radius: 8px; /* Sudut membulat */
+  padding: 8px; /* Ruang dalam */
+  margin: 5px 0; /* Jarak antar item */
+  transition: background-color 0.3s; /* Efek transisi untuk hover */
+}
+
+.move-item:hover {
+  background-color: #e0f7fa; /* Warna latar belakang saat hover */
+}
+
+.move-type {
+  display: inline-block; /* Menjadikan kotak */
+  padding: 4px 8px; /* Jarak di dalam kotak */
+  border-radius: 4px; /* Sudut melengkung */
+  font-size: 0.9em; /* Ukuran font */
+  color: white; /* Warna tulisan putih */
+}
+
+/* Warna berdasarkan tipe */
+.move-type.normal { background-color: #a8a878; }
+.move-type.fire { background-color: #f08030; }
+.move-type.water { background-color: #6890f0; }
+.move-type.grass { background-color: #78c850; }
+.move-type.electric { background-color: #f8d030; }
+.move-type.ice { background-color: #98d8d8; }
+.move-type.fighting { background-color: #c03028; }
+.move-type.poison { background-color: #a040a0; }
+.move-type.ground { background-color: #e0c068; }
+.move-type.flying { background-color: #a890f0; }
+.move-type.psychic { background-color: #f85888; }
+.move-type.bug { background-color: #a8b820; }
+.move-type.rock { background-color: #b8a038; }
+.move-type.ghost { background-color: #705898; }
+.move-type.dark { background-color: #705848; }
+.move-type.dragon { background-color: #7038f8; }
+.move-type.steel { background-color: #b8b8d0; }
+.move-type.fairy { background-color: #ee99ac; }
+
+#move-search {
+  width: 25%; /* Mengatur lebar input penuh */
+  padding: 10px; /* Ruang di dalam input */
+  border: 2px solid #7038f8; /* Warna border */
+  border-radius: 5px; /* Sudut melengkung */
+  font-size: 16px; /* Ukuran font */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Efek transisi */
+}
+
+#move-search:focus {
+  border-color: #45a049; /* Mengubah warna border saat fokus */
+  box-shadow: 0 0 5px rgba(72, 211, 128, 0.5); /* Menambahkan efek bayangan */
+  outline: none; /* Menghilangkan outline default */
+}
+
+#move-search::placeholder {
+  color: #888; /* Warna placeholder */
+  font-style: italic; /* Gaya font italic */
+}
+
+
+.weakness {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin: 5px;
+  color: white; /* Warna teks */
+}
+
+.weakness.normal { background-color: #a8a878; }
+.weakness.fire { background-color: #f08030; }
+.weakness.water { background-color: #6890f0; }
+.weakness.grass { background-color: #78c850; }
+.weakness.electric { background-color: #f8d030; }
+.weakness.ice { background-color: #98d8d8; }
+.weakness.fighting { background-color: #c03028; }
+.weakness.poison { background-color: #a040a0; }
+.weakness.ground { background-color: #e0c068; }
+.weakness.flying { background-color: #a890f0; }
+.weakness.psychic { background-color: #f85888; }
+.weakness.bug { background-color: #a8b820; }
+.weakness.rock { background-color: #b8a038; }
+.weakness.ghost { background-color: #705898; }
+.weakness.dark { background-color: #705848; }
+.weakness.dragon { background-color: #7038f8; }
+.weakness.steel { background-color: #b8b8d0; }
+.weakness.fairy { background-color: #ee99ac; }
+
+
+.move-button-container {
+  display: flex;          /* Gunakan flexbox untuk mengatur tombol dalam satu baris */
+  justify-content: center; /* Pusatkan tombol secara horizontal */
+  margin-top: 10px;      /* Jarak atas dari elemen sebelumnya */
+}
+
+.move-button {
+  margin: 0 5px;        /* Margin kiri dan kanan untuk jarak antar tombol */
+  padding: 5px 10px;    /* Padding atas/bawah dan kiri/kanan untuk memperkecil ukuran */
+  font-size: 12px;      /* Ukuran font lebih kecil */
+  border-radius: 5px;   /* Membuat sudut tombol melengkung */
+  background-color: #007BFF; /* Warna latar belakang tombol (warna biru) */
+  color: white;         /* Warna teks tombol */
+  border: none;         /* Hilangkan border default */
+  cursor: pointer;      /* Ubah kursor menjadi pointer saat hover */
+}
+
+.move-button:hover {
+  background-color: #0056b3; /* Ganti warna saat hover */
+}
+
+.suggestions-list {
+  position: absolute;
+  background-color: #ffffff; /* Latar belakang putih */
+  border: 1px solid #ddd; /* Border yang lebih lembut */
+  border-radius: 15px; /* Sudut melengkung */
+  width: calc(25% - 20px); /* Lebar responsif */
+  max-height: 200px; /* Tinggi maksimal */
+  overflow-y: auto; /* Scroll jika terlalu banyak */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan untuk efek depth */
+  z-index: 1000; /* Pastikan di atas elemen lain */
+  margin-top: 7.5em;
+  text-align: center;
+}
+
+.suggestion-item {
+  padding: 10px; /* Ruang dalam item */
+  cursor: pointer; /* Kursor pointer untuk menunjukkan item dapat diklik */
+  transition: background-color 0.3s; /* Transisi halus saat hover */
+}
+
+.suggestion-item:hover {
+  background-color: #f0f0f0; /* Warna latar belakang saat hover */
+  color: #333; /* Ubah warna teks saat hover */
+}
+
+#modal-pokemon-description {
+  font-size: 14px; /* Atur ukuran font */
+  margin-top: 10px; /* Tambahkan jarak di atas */
+  line-height: 1.5; /* Atur jarak antar baris */
+  color: #555; /* Atur warna teks */
+  text-align: justify; /* Rata kiri dan kanan */
+}

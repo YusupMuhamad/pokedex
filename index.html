@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pokedex</title>
+  <link rel="stylesheet" href="./assets/style.css" />
+</head>
+
+<body>
+  <h1>Pokedex</h1>
+  <input type="text" id="search-input" placeholder="Search Pokémon..." />
+  <div id="suggestions" class="suggestions-list" style="display: none;"></div>
+
+  <div id="pokemon-list"></div>
+  <button id="load-more-button">Lihat Pokémon Lainnya</button>
+
+  <!-- Modal untuk menampilkan detail Pokémon -->
+  <div id="pokemon-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2 id="modal-pokemon-name"></h2>
+      <p id="modal-pokemon-id"></p>
+
+      <img id="modal-pokemon-image" src="" alt="" />
+      <div id="modal-pokemon-types"></div>
+      <h3>Description:</h3>
+      <p id="modal-pokemon-description"></p>
+      <h3>Stats:</h3>
+      <div id="modal-pokemon-stats"></div>
+      <h3>Moves:</h3>
+      <input type="text" id="move-search" placeholder="Search moves..." />
+      <ul id="modal-pokemon-moves"></ul>
+      <div class="move-button-container">
+        <button id="prev-moves-button" class="move-button" disabled>Previous</button>
+        <button id="next-moves-button" class="move-button" disabled>Next</button>
+      </div>
+
+      <h3>Evolutions:</h3>
+      <div id="modal-pokemon-evolutions"></div>
+      <h3>Weakness:</h3>
+      <div id="modal-pokemon-weakness"></div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <ul>
+      <li><a href="./index.html">Home</a></li>
+      <li><a href="#about">Generations</a></li>
+      <li><a href="#contact">Item</a></li>
+    </ul>
+  </nav>
+
+  <!-- Scroll to Top Button -->
+  <button id="scrollToTop" class="scroll-to-top" title="Go to top">&uarr;</button>
+
+  <script src="./assets/script.js"></script>
+  <script>
+    // Mengambil elemen tombol
+    const scrollToTopButton = document.getElementById('scrollToTop');
+
+    // Menampilkan atau menyembunyikan tombol saat menggulir
+    window.onscroll = function () {
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        scrollToTopButton.style.display = "block"; // Tampilkan tombol
+      } else {
+        scrollToTopButton.style.display = "none"; // Sembunyikan tombol
+      }
+    };
+
+    // Menambahkan fungsionalitas untuk scroll ke atas
+    scrollToTopButton.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Scroll dengan transisi yang halus
+      });
+    });
+  </script>
+</body>
+
+</html>
