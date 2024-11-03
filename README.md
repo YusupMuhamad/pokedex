@@ -1,5 +1,3 @@
-Berikut adalah versi yang lebih menarik dan terstruktur untuk README Anda:
-
 ---
 
 # 🌟 Website Pokedex
