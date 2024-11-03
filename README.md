@@ -1,6 +1,6 @@
 ---
 
-# 🌟 Website Pokedex
+# 🌟 Pokedex Website
 
 Sebuah proyek untuk penggemar Pokémon yang ingin menjelajahi dunia Pokémon dengan mudah! Website Pokedex ini memanfaatkan data dari PokeAPI untuk menampilkan informasi lengkap tentang berbagai Pokémon, termasuk tipe, evolusi, kelemahan, dan banyak lagi.
 
