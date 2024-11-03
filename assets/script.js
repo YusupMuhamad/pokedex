@@ -23,6 +23,7 @@ const modalPokemonMoves = document.getElementById('modal-pokemon-moves');
 const modalPokemonEvolutions = document.getElementById('modal-pokemon-evolutions');
 const closeButton = document.querySelector('.close-button');
 const modalPokemonWeakness = document.getElementById('modal-pokemon-weakness');
+const modalPokemonStrengths = document.getElementById('modal-pokemon-strengths');
 const modalPokemonDescription = document.getElementById('modal-pokemon-description');
 
 
@@ -31,7 +32,7 @@ const apiUrl = (offset, limit) => `https://pokeapi.co/api/v2/pokemon?limit=${lim
 
 function debounce(func, delay) {
     let timeout;
-    return function(...args) {
+    return function (...args) {
         clearTimeout(timeout);
         timeout = setTimeout(() => {
             func.apply(this, args);
@@ -42,7 +43,6 @@ function debounce(func, delay) {
 function cleanDescription(description) {
     return description.replace(/[\x00-\x1F\x7F-\x9F]+/g, ' ').trim();
 }
-
 
 
 // Fungsi menampilkan daftar Pokémon
@@ -58,7 +58,7 @@ async function fetchPokemon() {
             const pokemonDetails = await pokemonData.json();
 
             const pokemonItem = document.createElement('div');
-            pokemonItem.classList.add('pokemon-item');
+            pokemonItem.classList.add('pokemon-item'); // Pastikan ini ada
 
             // Tambahkan elemen ID Pokémon dari API
             const pokemonId = document.createElement('p');
@@ -73,13 +73,23 @@ async function fetchPokemon() {
             // Mengubah huruf awal nama Pokémon menjadi kapital
             pokemonName.textContent = pokemonDetails.name.charAt(0).toUpperCase() + pokemonDetails.name.slice(1);
 
-            // Buat elemen untuk setiap tipe Pokémon
+            // Buat elemen untuk setiap tipe Pokémon dengan ikon
             const typesContainer = document.createElement('div');
             pokemonDetails.types.forEach(typeInfo => {
+                const typeName = typeInfo.type.name.charAt(0).toUpperCase() + typeInfo.type.name.slice(1);
                 const typeSpan = document.createElement('span');
                 typeSpan.classList.add('pokemon-type', typeInfo.type.name);
-                // Mengubah huruf awal tipe Pokémon menjadi kapital
-                typeSpan.textContent = typeInfo.type.name.charAt(0).toUpperCase() + typeInfo.type.name.slice(1);
+
+                // Tambahkan ikon untuk tipe Pokémon
+                const typeIconPath = `assets/img/pokemonType/Pokemon_Type_Icon_${typeName}.svg`;
+                const typeIcon = document.createElement('img');
+                typeIcon.src = typeIconPath;
+                typeIcon.alt = `${typeName} Icon`;
+                typeIcon.classList.add('type-icon'); // Tambahkan kelas untuk CSS styling
+
+                typeSpan.appendChild(typeIcon); // Tambahkan ikon sebelum teks
+                typeSpan.appendChild(document.createTextNode(` ${typeName}`)); // Tambahkan nama tipe
+
                 typesContainer.appendChild(typeSpan);
             });
 
@@ -94,8 +104,6 @@ async function fetchPokemon() {
             pokemonItem.addEventListener('click', () => {
                 showPokemonDetails(pokemonDetails.id); // Tampilkan detail ketika Pokémon diklik
             });
-
-            pokemonContainer.appendChild(pokemonItem);
         }
     } catch (error) {
         console.error("Error fetching Pokémon data:", error);
@@ -113,7 +121,7 @@ async function searchPokemon(query) {
         const searchQuery = query.startsWith('#') ? query.slice(1) : query;
 
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${searchQuery}`);
-        
+
         // Jika token pencarian sudah berubah, abaikan respons ini
         if (currentSearchToken !== searchToken) return;
 
@@ -127,7 +135,7 @@ async function searchPokemon(query) {
         pokemonItem.classList.add('pokemon-item');
 
         pokemonItem.addEventListener('click', () => {
-            showPokemonDetails(pokemonDetails.id); 
+            showPokemonDetails(pokemonDetails.id);
         });
 
         const pokemonId = document.createElement('p');
@@ -143,9 +151,20 @@ async function searchPokemon(query) {
 
         const typesContainer = document.createElement('div');
         pokemonDetails.types.forEach(typeInfo => {
+            const typeName = typeInfo.type.name.charAt(0).toUpperCase() + typeInfo.type.name.slice(1);
             const typeSpan = document.createElement('span');
             typeSpan.classList.add('pokemon-type', typeInfo.type.name);
-            typeSpan.textContent = typeInfo.type.name.charAt(0).toUpperCase() + typeInfo.type.name.slice(1);
+
+            // Tambahkan ikon untuk tipe Pokémon
+            const typeIconPath = `assets/img/pokemonType/Pokemon_Type_Icon_${typeName}.svg`;
+            const typeIcon = document.createElement('img');
+            typeIcon.src = typeIconPath;
+            typeIcon.alt = `${typeName} Icon`;
+            typeIcon.classList.add('type-icon'); // Tambahkan kelas untuk CSS styling
+
+            typeSpan.appendChild(typeIcon); // Tambahkan ikon sebelum teks
+            typeSpan.appendChild(document.createTextNode(` ${typeName}`)); // Tambahkan nama tipe
+
             typesContainer.appendChild(typeSpan);
         });
 
@@ -158,59 +177,116 @@ async function searchPokemon(query) {
     } catch (error) {
         // Jika token pencarian sudah berubah, abaikan pesan error ini
         if (currentSearchToken !== searchToken) return;
-        
+
         console.error("Error fetching Pokémon data:", error);
         pokemonContainer.innerHTML = '<p class="no-pokemon">Pokémon not found. Please try again.</p>';
     }
 }
 
-
-
 // Fungsi untuk menampilkan modal dengan detail Pokémon
 async function showPokemonDetails(pokemonId) {
-    // Cegah pemanggilan fungsi jika sudah dalam proses loading
     if (isLoading) return;
-    isLoading = true; // Set status loading
+    isLoading = true;
 
     try {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
-        pokemonDetails = await response.json(); // Simpan detail Pokémon ke variabel global
+        pokemonDetails = await response.json();
 
-        // Kosongkan konten modal sebelumnya
+        // Reset modal content
         modalPokemonName.textContent = '';
         modalPokemonImage.src = '';
         modalPokemonId.textContent = '';
         modalPokemonTypes.innerHTML = '';
         modalPokemonWeakness.innerHTML = '';
         modalPokemonStats.innerHTML = '';
-        modalPokemonMoves.innerHTML = ''; // Bersihkan moves sebelumnya
-        modalPokemonEvolutions.innerHTML = ''; // Bersihkan evolusi sebelumnya
-        modalPokemonDescription.textContent = ''; // Bersihkan deskripsi sebelumnya
+        modalPokemonMoves.innerHTML = '';
+        modalPokemonEvolutions.innerHTML = '';
+        modalPokemonDescription.textContent = '';
+        modalPokemonStrengths.innerHTML = '';
 
+        // Set Pokémon name and ID
         modalPokemonName.textContent = pokemonDetails.name.charAt(0).toUpperCase() + pokemonDetails.name.slice(1);
-        modalPokemonImage.src = pokemonDetails.sprites.front_default;
+        modalPokemonImage.src = pokemonDetails.sprites.front_default; // Default image
+        modalPokemonImage.classList.add('pokemon-image'); // Tambahkan kelas untuk transisi
         modalPokemonId.textContent = `#${pokemonDetails.id}`;
 
-        // Tampilkan tipe
+        // Set up types with icons
         const types = pokemonDetails.types.map(typeInfo => {
             const typeName = typeInfo.type.name.charAt(0).toUpperCase() + typeInfo.type.name.slice(1);
-            modalPokemonTypes.innerHTML += `<span class="pokemon-type ${typeInfo.type.name}">${typeName}</span>`;
+
+            // Tambahkan ikon SVG berdasarkan tipe
+            const typeIconPath = `assets/img/pokemonType/Pokemon_Type_Icon_${typeName}.svg`; // Sesuaikan path
+
+            // Tambahkan ikon dan nama tipe dalam elemen span
+            modalPokemonTypes.innerHTML += `
+      <span class="pokemon-type ${typeInfo.type.name}">
+        <img src="${typeIconPath}" alt="${typeName} icon" class="type-icon" />
+        ${typeName}
+      </span>`;
             return typeInfo.type.name;
         });
 
-        // Dapatkan kelemahan
-        const weaknesses = await getWeaknesses(types);
 
-        // Tampilkan kelemahan
+        // Get weaknesses and strengths
+        const weaknesses = await getWeaknesses(types);
+        const strengths = await getStrengths(types);
+
+        // Tampilkan weaknesses dengan ikon tipe
         weaknesses.forEach(weakness => {
             const weaknessElement = document.createElement('div');
-            weaknessElement.classList.add('weakness', weakness.toLowerCase()); // Tambahkan kelas berdasarkan tipe
-            weaknessElement.textContent = weakness.charAt(0).toUpperCase() + weakness.slice(1); // Ubah huruf awal menjadi kapital
+            weaknessElement.classList.add('weakness', weakness.toLowerCase());
+
+            // Tambahkan ikon untuk weakness
+            const weaknessIconPath = `assets/img/pokemonType/Pokemon_Type_Icon_${weakness.charAt(0).toUpperCase() + weakness.slice(1)}.svg`;
+            const weaknessIcon = document.createElement('img');
+            weaknessIcon.src = weaknessIconPath;
+            weaknessIcon.alt = `${weakness} Icon`;
+            weaknessIcon.classList.add('type-icon'); // Tambahkan kelas CSS untuk styling ikon
+
+            weaknessElement.appendChild(weaknessIcon); // Tambahkan ikon sebelum teks
+            weaknessElement.appendChild(document.createTextNode(` ${weakness.charAt(0).toUpperCase() + weakness.slice(1)}`));
+
             modalPokemonWeakness.appendChild(weaknessElement);
         });
 
-        // Tampilkan statistik
+        // Tampilkan strengths dengan ikon tipe
+        modalPokemonStrengths.innerHTML = '';
+        const strengthsTitle = document.getElementById('strengths-title');
+
+        if (strengths.length > 0) {
+            strengthsTitle.style.display = 'block';
+            modalPokemonStrengths.style.display = 'block';
+
+            strengths.forEach(strength => {
+                const strengthElement = document.createElement('div');
+                strengthElement.classList.add('strength', strength.toLowerCase());
+
+                // Tambahkan ikon untuk strength
+                const strengthIconPath = `assets/img/pokemonType/Pokemon_Type_Icon_${strength.charAt(0).toUpperCase() + strength.slice(1)}.svg`;
+                const strengthIcon = document.createElement('img');
+                strengthIcon.src = strengthIconPath;
+                strengthIcon.alt = `${strength} Icon`;
+                strengthIcon.classList.add('type-icon'); // Tambahkan kelas CSS untuk styling ikon
+
+                strengthElement.appendChild(strengthIcon); // Tambahkan ikon sebelum teks
+                strengthElement.appendChild(document.createTextNode(` ${strength.charAt(0).toUpperCase() + strength.slice(1)}`));
+
+                modalPokemonStrengths.appendChild(strengthElement);
+            });
+        } else {
+            strengthsTitle.style.display = 'none';
+            modalPokemonStrengths.style.display = 'none';
+        }
+
+
+        // Display stats
+        let totalStats = 0;
+        const maxStatValue = 150;
+
         pokemonDetails.stats.forEach(stat => {
+            const statContainer = document.createElement('div');
+            statContainer.classList.add('stat-container');
+
             const statItem = document.createElement('div');
             statItem.classList.add('stat-item');
 
@@ -222,41 +298,109 @@ async function showPokemonDetails(pokemonId) {
             statValue.textContent = stat.base_stat;
             statValue.classList.add('stat-value');
 
+            const statWidth = (stat.base_stat / maxStatValue) * 100;
+            statItem.style.width = `${statWidth}%`;
+
             statItem.appendChild(statName);
             statItem.appendChild(statValue);
-            modalPokemonStats.appendChild(statItem);
+            statContainer.appendChild(statItem);
+            modalPokemonStats.appendChild(statContainer);
+
+            totalStats += stat.base_stat;
         });
 
-        // Ambil deskripsi Pokémon
+        // Display abilities
+        const abilitiesContainer = document.getElementById('modal-pokemon-abilities');
+        abilitiesContainer.innerHTML = '';
+
+        pokemonDetails.abilities.forEach(abilityInfo => {
+            const abilityName = abilityInfo.ability.name.charAt(0).toUpperCase() + abilityInfo.ability.name.slice(1);
+            const abilityElement = document.createElement('div');
+            abilityElement.textContent = abilityName;
+            abilitiesContainer.appendChild(abilityElement);
+        });
+
+        // Display total stats
+        const totalStatsElement = document.getElementById('modal-pokemon-total-stats');
+        totalStatsElement.innerHTML =
+            `<div class="stat-item">
+                <span class="stat-name-total">Total Stats:</span>
+                <span class="stat-value">${totalStats}</span>
+            </div>`;
+
+        // Display description
         const speciesResponse = await fetch(pokemonDetails.species.url);
         const speciesDetails = await speciesResponse.json();
         const flavorTextEntries = speciesDetails.flavor_text_entries;
         const englishDescription = flavorTextEntries.find(entry => entry.language.name === 'en').flavor_text;
 
-        // Tampilkan deskripsi Pokémon
         modalPokemonDescription.textContent = cleanDescription(englishDescription);
 
-        // Tampilkan moves
-        currentMoveIndex = 0; // Reset indeks saat menampilkan gerakan
-        filteredMoves = pokemonDetails.moves; // Simpan semua gerakan ke array filteredMoves
-        displayMoves(filteredMoves); // Panggil fungsi untuk menampilkan gerakan
+        // Display height and weight
+        const heightInMeters = (pokemonDetails.height / 10).toFixed(2);
+        const weightInKilograms = (pokemonDetails.weight / 10).toFixed(2);
 
-        // Ambil evolusi Pokémon
+        modalPokemonDescription.innerHTML += `
+            <div class="pokemon-dimensions">
+                <div class="pokemon-dimension-item">
+                    <strong>Height</strong> ${heightInMeters} m
+                </div>
+                <div class="pokemon-dimension-item">
+                    <strong>Weight</strong> ${weightInKilograms} kg
+                </div>
+            </div>`;
+
+        // Set up toggle button for shiny
+        let isShiny = false;
+        const toggleShinyBtn = document.getElementById('toggle-shiny-btn');
+        toggleShinyBtn.addEventListener('click', async () => {
+            // Tambahkan kelas hidden untuk memudarkan gambar
+            modalPokemonImage.classList.add('hidden');
+
+            // Tunggu beberapa waktu agar efek memudarnya terlihat
+            await new Promise(resolve => setTimeout(resolve, 500)); // Tunggu 0.5 detik
+
+            // Toggle shiny status dan ganti gambar
+            isShiny = !isShiny;
+            modalPokemonImage.src = isShiny ? pokemonDetails.sprites.front_shiny : pokemonDetails.sprites.front_default;
+
+            // Hapus kelas hidden untuk menampilkan gambar kembali
+            modalPokemonImage.classList.remove('hidden');
+            // toggleShinyBtn.textContent = isShiny ? 'Show Normal' : 'Show Shiny'; // Update button text
+        });
+
+        currentMoveIndex = 0;
+        filteredMoves = pokemonDetails.moves;
+        displayMoves(filteredMoves);
+
         const evolutionChainResponse = await fetch(speciesDetails.evolution_chain.url);
         const evolutionChainDetails = await evolutionChainResponse.json();
-        
         const evolutions = evolutionChainDetails.chain;
         displayEvolutions(evolutions);
 
-        // Tampilkan modal
         pokemonModal.style.display = 'block';
     } catch (error) {
         console.error("Error fetching Pokémon details:", error);
     } finally {
-        isLoading = false; // Reset status loading di akhir proses
+        isLoading = false;
     }
 }
 
+async function getStrengths(types) {
+    const strengths = new Set(); // Gunakan Set untuk menghindari duplikasi
+
+    for (const type of types) {
+        const response = await fetch(`https://pokeapi.co/api/v2/type/${type}`);
+        const typeDetails = await response.json();
+
+        // Tipe yang lemah terhadap tipe ini
+        typeDetails.damage_relations.double_damage_to.forEach(strengthType => {
+            strengths.add(strengthType.name);
+        });
+    }
+
+    return Array.from(strengths); // Kembalikan sebagai array
+}
 
 
 // Fungsi untuk mendapatkan kelemahan berdasarkan tipe
@@ -289,6 +433,7 @@ async function displayEvolutions(chain) {
     evolutionImage.alt = evolutionDetails.name;
     evolutionImage.style.width = '100px'; // Ukuran gambar
     evolutionImage.style.height = '100px'; // Ukuran gambar
+    evolutionImage.style.filter = 'drop-shadow(0 0 5px rgba(0, 0, 0, 0.5))'; // Gaya drop-shadow
 
     // Tambahkan nama evolusi
     const evolutionName = document.createElement('p');
@@ -344,6 +489,7 @@ async function displayEvolutions(chain) {
     }
 }
 
+
 function displayMoves(moves) {
     const modalPokemonMoves = document.getElementById('modal-pokemon-moves');
     modalPokemonMoves.innerHTML = ''; // Bersihkan konten sebelumnya
@@ -366,13 +512,27 @@ function displayMoves(moves) {
 
                 const moveText = document.createElement('span');
                 moveText.textContent = move.move.name.charAt(0).toUpperCase() + move.move.name.slice(1);
-                
-                const moveType = document.createElement('span');
-                moveType.textContent = moveDetails.type.name.charAt(0).toUpperCase() + moveDetails.type.name.slice(1);
-                moveType.classList.add('move-type', moveDetails.type.name);
+
+                // Tambahkan elemen untuk tipe move dengan ikon tipe
+                const moveTypeContainer = document.createElement('div');
+                moveTypeContainer.classList.add('move-type-container');
+
+                // Ikon tipe berdasarkan tipe move
+                const typeIconPath = `assets/img/pokemonType/Pokemon_Type_Icon_${moveDetails.type.name.charAt(0).toUpperCase() + moveDetails.type.name.slice(1)}.svg`;
+                const moveTypeIcon = document.createElement('img');
+                moveTypeIcon.src = typeIconPath;
+                moveTypeIcon.alt = `${moveDetails.type.name} Icon`;
+                moveTypeIcon.classList.add('type-icon'); // Tambahkan kelas CSS untuk styling ikon
+
+                const moveTypeText = document.createElement('span');
+                moveTypeText.textContent = moveDetails.type.name.charAt(0).toUpperCase() + moveDetails.type.name.slice(1);
+                moveTypeText.classList.add('move-type', moveDetails.type.name);
+
+                moveTypeContainer.appendChild(moveTypeIcon); // Tambahkan ikon
+                moveTypeContainer.appendChild(moveTypeText); // Tambahkan teks tipe
 
                 moveItem.appendChild(moveText);
-                moveItem.appendChild(moveType);
+                moveItem.appendChild(moveTypeContainer);
                 modalPokemonMoves.appendChild(moveItem);
             })();
         }
@@ -381,6 +541,7 @@ function displayMoves(moves) {
     // Tombol untuk Previous dan Next
     updateNavigationButtons();
 }
+
 
 // Fungsi untuk menampilkan saran Pokémon berdasarkan input
 async function fetchPokemonSuggestions(query) {
@@ -406,7 +567,7 @@ function displaySuggestions(suggestions) {
         const item = document.createElement('div');
         item.classList.add('suggestion-item');
         item.textContent = suggestion.charAt(0).toUpperCase() + suggestion.slice(1);
-        
+
         // Tambahkan event listener untuk klik pada item saran
         item.addEventListener('click', () => {
             searchInput.value = suggestion;
@@ -438,7 +599,7 @@ document.getElementById('move-search').addEventListener('input', debounce((event
         currentMoveIndex = 0; // Reset indeks
     } else {
         // Filter moves berdasarkan input pencarian
-        filteredMoves = pokemonDetails.moves.filter(move => 
+        filteredMoves = pokemonDetails.moves.filter(move =>
             move.move.name.toLowerCase().includes(searchTerm)
         );
         currentMoveIndex = 0; // Reset index
@@ -474,16 +635,16 @@ searchInput.addEventListener('input', () => {
 
     if (query) {
         loadMoreButton.style.display = 'none';
-        pokemonContainer.innerHTML = ''; 
+        pokemonContainer.innerHTML = '';
         fetchPokemonSuggestions(query); // Panggil untuk saran
-        
+
         // Reset hasil pencarian saat mengetik kembali
         searchPokemon(query);
     } else {
-        suggestionsList.style.display = 'none'; 
+        suggestionsList.style.display = 'none';
         loadMoreButton.style.display = 'block';
         offset = 0;
-        pokemonContainer.innerHTML = ''; 
+        pokemonContainer.innerHTML = '';
         fetchPokemon();
     }
 });

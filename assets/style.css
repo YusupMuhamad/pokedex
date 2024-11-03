@@ -2,6 +2,20 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  cursor: pointer;
+}
+
+/* Tambahkan shadow pada setiap item Pokémon */
+#pokemon-list .pokemon-item {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow halus di sekitar item */
+  transition: box-shadow 0.3s ease; /* Transisi saat hover */
+  border-radius: 10px; /* Opsional, untuk sudut yang halus */
+  padding: 10px;
+}
+
+/* Efek hover untuk memperjelas bayangan */
+#pokemon-list .pokemon-item:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Tambahkan shadow lebih tebal saat hover */
 }
 
 .no-pokemon{
@@ -17,18 +31,53 @@
   background-color: #f8f8f8;
 }
 
+.pokemon-item {
+  background-image: url('./img/PokeBall.png'); /* Gambar latar belakang */
+  background-size: 80%; /* Sesuaikan gambar dengan ukuran elemen */
+  background-position: center 60px; /* Pindahkan ke atas */
+  background-repeat: no-repeat; /* Jangan ulang gambar */
+  border-radius: 10px; /* Jika ingin sudut yang lebih halus */
+  padding: 10px; /* Beri padding agar konten tidak terlalu dekat dengan tepi */
+  margin: 10px; /* Tambahkan margin untuk jarak antar item */
+  position: relative; /* Agar posisi elemen anak bisa relatif terhadap elemen ini */
+  width: 250px;
+}
+
 .pokemon-item img {
   width: 100px;
   height: 100px;
+  filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.5)); /* Menambahkan efek drop-shadow */
 }
 
+
 .pokemon-type {
-  display: inline-block;
+  display: inline-flex; /* Agar gambar dan teks berbaris */
+  align-items: center;
   padding: 4px 8px;
   border-radius: 4px;
   color: #fff;
   font-size: 12px;
   margin: 2px;
+}
+
+.type-icon {
+  width: 16px; /* Sesuaikan ukuran ikon */
+  height: 16px;
+  margin-right: 4px; /* Jarak antara ikon dan teks */
+  vertical-align: middle; /* Menyelaraskan ikon dengan teks */
+}
+
+.move-type-container {
+  display: flex;
+  align-items: center;
+}
+
+
+/* Style untuk ikon */
+.pokemon-type .type-icon {
+  width: 20px; /* Ukuran ikon */
+  height: 20px;
+  margin-right: 5px; /* Jarak antara ikon dan teks */
 }
 
 .pokemon-type.grass {
@@ -93,13 +142,26 @@ body {
   align-items: center;
   padding: 20px;
   background-color: #f2f2f2;
+  background-image: url('./img/wallpaper.jpg'); /* Ganti dengan path gambar wallpaper Anda */
+  background-size: cover; /* Sesuaikan ukuran gambar agar memenuhi seluruh layar */
+  background-repeat: no-repeat; /* Jangan ulang gambar */
+  background-attachment: fixed; /* Tetap pada posisi meskipun di-scroll */
+  background-position: center; /* Pusatkan gambar */
 }
 
 h1 {
-  color: #333;
-  font-size: 2em;
+  font-size: 2.5em;
   margin-bottom: 20px;
 }
+
+.poke {
+  color: red; /* Warna untuk "Poké" */
+}
+
+.dex {
+  color: white; /* Warna untuk "dex" */
+}
+
 
 /* Navbar Styles */
 .navbar {
@@ -173,7 +235,7 @@ h1 {
 }
 
 #search-input:focus {
-  border-color: #6890f0;
+  border-color: #c03028;
   box-shadow: 0 0 8px rgba(104, 144, 240, 0.3);
 }
 
@@ -184,7 +246,7 @@ button {
   font-size: 1em;
   font-weight: bold;
   color: #fff;
-  background-color: #6890f0;
+  background-color: #333;
   border: none;
   border-radius: 20px;
   cursor: pointer;
@@ -286,33 +348,139 @@ h3 {
   border-radius: 8px; /* Sudut membulat untuk gambar evolusi */
 }
 
-.evolution-name {
-  font-weight: bold; /* Menebalkan teks */
-  font-size: 16px; /* Ukuran font */
-  color: #ffcc00; /* Warna teks */
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6); /* Memberikan bayangan pada teks */
+/* Gaya untuk kontainer Pokémon */
+.pokemon-container {
+  position: relative; /* Membuat posisi relatif untuk menempatkan gambar */
+  width: 200px; /* Sesuaikan lebar kontainer */
+  height: 200px; /* Sesuaikan tinggi kontainer */
+  background-image: url('./img/pokeball.png'); /* Gambar latar belakang Poké Ball */
+  background-size: cover; /* Sesuaikan gambar dengan ukuran kontainer */
+  background-position: center; /* Posisikan gambar di tengah */
+  border-radius: 10px; /* Sudut yang membulat */
+  overflow: hidden; /* Menghilangkan bagian gambar yang keluar dari kontainer */
+  margin-left: auto; /* Margin kiri otomatis */
+  margin-right: auto; /* Margin kanan otomatis */
+  margin-bottom: 20px;
+}
+
+/* Gaya untuk gambar Pokémon */
+.pokemon-image {
+  width: 100%; /* Lebar gambar Pokémon */
+  height: auto; /* Tinggi otomatis untuk menjaga rasio aspek */
+  position: absolute; /* Membuat posisi absolut */
+  top: 50%; /* Posisikan gambar di tengah vertikal */
+  left: 50%; /* Posisikan gambar di tengah horizontal */
+  transform: translate(-50%, -50%); /* Pindahkan gambar ke tengah */
+  filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.8));
 }
 
 
+/* Tambahkan ini ke file CSS Anda */
+.pokemon-image {
+  transition: opacity 0.4s ease-in-out; /* Transisi untuk opacity */
+}
+
+.hidden {
+  opacity: 0; /* Saat gambar tersembunyi, atur opacity ke 0 */
+}
+
+/* Gaya untuk kontainer tombol */
+.button-container {
+  display: flex; /* Menggunakan flexbox untuk pemusatan */
+  justify-content: center; /* Memusatkan tombol secara horizontal */
+  align-items: center; /* Memusatkan tombol secara vertikal */
+  margin-top: -20px;
+  margin-bottom: -20px;
+}
+
+/* Gaya untuk tombol toggle yang berbentuk gambar */
+.toggle-button {
+  background-image: url('./img/shiny.png'); /* Gambar sebagai latar belakang */
+  background-size: cover; /* Sesuaikan gambar dengan ukuran tombol */
+  width: 150px; /* Lebar tombol */
+  height: 35px; /* Tinggi tombol */
+  border: none; /* Hilangkan border */
+  cursor: pointer; /* Menunjukkan bahwa ini dapat diklik */
+  outline: none; /* Hilangkan outline saat tombol diklik */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transisi untuk efek hover */
+  
+  /* Menambahkan bayangan */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* X-offset, Y-offset, Blur-radius, Color */
+}
+
+/* Efek hover untuk tombol */
+.toggle-button:hover {
+  transform: scale(1.1); /* Membesarkan tombol sedikit saat hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Mengubah bayangan saat hover */
+}
+
+/* Efek aktif (saat tombol ditekan) */
+.toggle-button:active {
+  transform: scale(0.95); /* Memperkecil tombol sedikit saat ditekan */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Mengurangi bayangan saat ditekan */
+}
+
+
+
+.evolution-name {
+  font-weight: bold; /* Menebalkan teks */
+  font-size: 16px; /* Ukuran font */
+  color: #6890f0; /* Warna teks */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Memberikan bayangan pada teks */
+}
+
 /* Styling untuk statistik Pokémon */
+.stat-container {
+  border: 1px solid #92bff7; /* Border luar */
+  border-radius: 8px; /* Sudut membulat */
+  padding: 5px; /* Ruang dalam untuk border */
+  margin: 5px 0; /* Jarak antar item */
+  background-color: #ecebeb44;
+}
+
 .stat-item {
   display: flex; /* Gunakan flexbox untuk susun horizontal */
   justify-content: space-between; /* Jarak antara nama dan nilai */
-  background-color: #e7f3ff; /* Warna latar belakang yang lembut */
-  border: 1px solid #b3d4fc; /* Garis batas */
-  border-radius: 8px; /* Sudut membulat */
+  background-color: #3b98f531; /* Warna latar belakang yang lembut */
+  border-radius: 8px; /* Sudut membulat untuk item statistik */
   padding: 10px; /* Ruang dalam */
-  margin: 5px 0; /* Jarak antar item */
+  margin: 0; /* Hapus margin untuk stat-item */
+  min-width: 100px; /* Lebar minimum untuk item */
+  transition: width 0.3s ease; /* Transisi halus saat lebar berubah */
 }
 
 .stat-name {
   font-weight: bold; /* Nama statistik tebal */
-  color: #1a73e8; /* Warna untuk nama statistik */
+  color: #000000; /* Warna untuk nama statistik */
+  font-size: 0.8em;
+}
+
+.stat-name-total {
+  font-weight: bold; /* Nama statistik tebal */
+  color: #c03028; /* Warna untuk nama statistik */
 }
 
 .stat-value {
   color: #333; /* Warna untuk nilai statistik */
-  font-size: 1.1em; /* Ukuran font sedikit lebih besar */
+  font-size: 0.8em; /* Ukuran font sedikit lebih besar */
+}
+
+.modal-section {
+  margin-top: 15px;
+  border-radius: 8px; /* Radius untuk sudut */
+}
+
+#modal-pokemon-abilities {
+  display: flex; /* Menggunakan flexbox untuk tata letak */
+  flex-wrap: wrap; /* Membungkus kemampuan ke baris baru jika diperlukan */
+}
+
+#modal-pokemon-abilities div {
+  background-color: #f0f8ff; /* Warna latar belakang untuk setiap ability */
+  margin: 5px; /* Ruang antar ability */
+  padding: 10px; /* Ruang dalam ability */
+  border-radius: 5px; /* Sudut melengkung */
+  border: 1px solid #aeeeee;
 }
 
 /* Styling untuk daftar moves Pokémon */
@@ -384,6 +552,33 @@ h3 {
   color: #888; /* Warna placeholder */
   font-style: italic; /* Gaya font italic */
 }
+
+.strength {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin: 5px;
+  color: white; /* Warna teks */
+}
+
+.strength.normal { background-color: #a8a878; }
+.strength.fire { background-color: #f08030; }
+.strength.water { background-color: #6890f0; }
+.strength.grass { background-color: #78c850; }
+.strength.electric { background-color: #f8d030; }
+.strength.ice { background-color: #98d8d8; }
+.strength.fighting { background-color: #c03028; }
+.strength.poison { background-color: #a040a0; }
+.strength.ground { background-color: #e0c068; }
+.strength.flying { background-color: #a890f0; }
+.strength.psychic { background-color: #f85888; }
+.strength.bug { background-color: #a8b820; }
+.strength.rock { background-color: #b8a038; }
+.strength.ghost { background-color: #705898; }
+.strength.dark { background-color: #705848; }
+.strength.dragon { background-color: #7038f8; }
+.strength.steel { background-color: #b8b8d0; }
+.strength.fairy { background-color: #ee99ac; }
 
 
 .weakness {
@@ -466,4 +661,78 @@ h3 {
   line-height: 1.5; /* Atur jarak antar baris */
   color: #555; /* Atur warna teks */
   text-align: justify; /* Rata kiri dan kanan */
+}
+
+.pokemon-dimensions {
+  display: flex; /* Gunakan flexbox untuk susun secara horizontal */
+  justify-content: space-between; /* Jarak antara tinggi dan berat */
+  background-color: #e7f3ff; /* Warna latar belakang yang lembut */
+  border: 1px solid #b3d4fc; /* Garis batas */
+  border-radius: 8px; /* Sudut membulat */
+  padding: 10px; /* Ruang dalam */
+  margin-top: 10px; /* Jarak atas */
+}
+
+.pokemon-dimension-item {
+  flex: 1; /* Membagi ruang secara merata */
+  text-align: center; /* Teks di tengah */
+}
+
+.pokemon-dimension-item strong {
+  display: block; /* Menjadikan label sebagai blok */
+  font-weight: bold; /* Label tebal */
+  color: #1a73e8; /* Warna untuk label */
+}
+
+
+/* @media (max-width: 409px) {
+  .pokemon-item {
+    background-size: 60%;
+    background-position: center 70px;
+    flex: 1 1 calc(33.33% - 20px);
+  }
+}
+
+@media (max-width: 380px) {
+  .pokemon-item {
+    background-size: 40%;
+    background-position: center 50px;
+    flex: 1 1 calc(50% - 20px);
+  }
+} */
+
+/* Responsif untuk laptop (kira-kira di atas 1024px) */
+@media (min-width: 1024px) {
+  .pokemon-item {
+    background-size: 45%;
+    background-position: center 48px;
+    flex: 1 1 calc(20% - 20px); /* Mengisi 20% lebar layar untuk 5 item per baris */
+  }
+}
+
+/* Responsif untuk tablet (kira-kira antara 768px dan 1024px) */
+@media (max-width: 1024px) and (min-width: 768px) {
+  .pokemon-item {
+    background-size: 29%;
+    background-position: center 55px;
+    flex: 1 1 calc(33.33% - 20px); /* Mengisi 33% lebar layar untuk 3 item per baris */
+  }
+}
+
+/* Responsif untuk mobile (kira-kira di bawah 768px) */
+@media (max-width: 768px) {
+  .pokemon-item {
+    background-size: 18%;
+    background-position: center 55px;
+    flex: 1 1 calc(50% - 20px); /* Mengisi 50% lebar layar untuk 2 item per baris */
+  }
+}
+
+/* Responsif untuk layar sangat kecil (di bawah 480px) */
+@media (max-width: 480px) {
+  .pokemon-item {
+    background-size: 30%;
+    background-position: center 70px;
+    flex: 1 1 calc(100% - 20px); /* Mengisi 100% lebar layar untuk 1 item per baris */
+  }
 }

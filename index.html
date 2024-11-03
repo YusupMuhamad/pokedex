@@ -9,27 +9,36 @@
 </head>
 
 <body>
-  <h1>Pokedex</h1>
+  <h1><span class="poke">Poké</span><span class="dex">dex</span></h1>
   <input type="text" id="search-input" placeholder="Search Pokémon..." />
   <div id="suggestions" class="suggestions-list" style="display: none;"></div>
 
   <div id="pokemon-list"></div>
-  <button id="load-more-button">Lihat Pokémon Lainnya</button>
+  <button id="load-more-button">More Pokémon</button>
 
-  <!-- Modal untuk menampilkan detail Pokémon -->
+  <!-- Modal detail Pokémon -->
   <div id="pokemon-modal" class="modal">
     <div class="modal-content">
       <span class="close-button">&times;</span>
       <h2 id="modal-pokemon-name"></h2>
       <p id="modal-pokemon-id"></p>
-
-      <img id="modal-pokemon-image" src="" alt="" />
+      <div class="pokemon-container">
+        <img src="./assets/img/PokeBall.png" alt="Pokemon" class="pokemon-image" id="modal-pokemon-image">
+      </div>
+      
       <div id="modal-pokemon-types"></div>
-      <h3>Description:</h3>
+      <div class="button-container">
+        <button id="toggle-shiny-btn" class="toggle-button">Show Shiny</button>
+      </div>
+      <h3>Description</h3>
       <p id="modal-pokemon-description"></p>
-      <h3>Stats:</h3>
+      <h3>Abilities</h3>
+      <div id="modal-pokemon-abilities" class="modal-section"></div>
+      <h3>Stats</h3>
       <div id="modal-pokemon-stats"></div>
-      <h3>Moves:</h3>
+      <div id="modal-pokemon-total-stats"></div>
+
+      <h3>Moves</h3>
       <input type="text" id="move-search" placeholder="Search moves..." />
       <ul id="modal-pokemon-moves"></ul>
       <div class="move-button-container">
@@ -37,9 +46,12 @@
         <button id="next-moves-button" class="move-button" disabled>Next</button>
       </div>
 
-      <h3>Evolutions:</h3>
+      <h3>Evolutions</h3>
       <div id="modal-pokemon-evolutions"></div>
-      <h3>Weakness:</h3>
+      <h3 id="strengths-title">Strengths</h3>
+      <div id="modal-pokemon-strengths"></div>
+
+      <h3>Weakness</h3>
       <div id="modal-pokemon-weakness"></div>
     </div>
   </div>
