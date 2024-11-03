@@ -366,8 +366,40 @@ async function showPokemonDetails(pokemonId) {
 
             // Hapus kelas hidden untuk menampilkan gambar kembali
             modalPokemonImage.classList.remove('hidden');
-            // toggleShinyBtn.textContent = isShiny ? 'Show Normal' : 'Show Shiny'; // Update button text
+            toggleShinyBtn.textContent = isShiny ? 'Show Normal' : 'Show Shiny'; // Update button text
         });
+
+        // Menambahkan elemen audio untuk "Pokemon Cry"
+        const cryContainer = document.getElementById('modal-pokemon-cry');
+        cryContainer.innerHTML = ''; // Bersihkan cry sebelumnya jika ada
+
+        const cryAudio = document.createElement('audio');
+        cryAudio.src = `assets/audio/pokemonCries/${pokemonDetails.id}.ogg`; // Path menuju file audio berdasarkan ID Pokémon
+        cryAudio.id = 'pokemon-cry-audio';
+
+        // Tambahkan tombol play untuk audio cry
+        const cryButton = document.createElement('button');
+        cryButton.textContent = 'Play Cry';
+        cryButton.classList.add('cry-button');
+
+        cryButton.addEventListener('click', () => {
+            if (cryAudio.paused) {
+                cryAudio.play();
+                cryButton.textContent = 'Stop Cry';
+            } else {
+                cryAudio.pause();
+                cryAudio.currentTime = 0; // Reset waktu audio ke awal
+                cryButton.textContent = 'Play Cry';
+            }
+        });
+
+        cryAudio.addEventListener('ended', () => {
+            cryButton.textContent = 'Play Cry';
+        });
+
+        // Tambahkan audio dan tombol ke container
+        cryContainer.appendChild(cryAudio);
+        cryContainer.appendChild(cryButton);
 
         currentMoveIndex = 0;
         filteredMoves = pokemonDetails.moves;

@@ -420,6 +420,26 @@ h3 {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Mengurangi bayangan saat ditekan */
 }
 
+.cry-button {
+  background-image: url('./img/audio-waves1.png');
+  background-size: cover;
+  background-position: center 50px; /* Memposisikan latar belakang di bagian atas tengah */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transisi untuk efek hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* X-offset, Y-offset, Blur-radius, Color */
+}
+
+
+/* Efek hover untuk tombol */
+.cry-button:hover {
+  transform: scale(1.1); /* Membesarkan tombol sedikit saat hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Mengubah bayangan saat hover */
+}
+
+/* Efek aktif (saat tombol ditekan) */
+.cry-button:active {
+  transform: scale(0.95); /* Memperkecil tombol sedikit saat ditekan */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Mengurangi bayangan saat ditekan */
+}
 
 
 .evolution-name {
