@@ -81,7 +81,7 @@ async function fetchPokemon() {
                 typeSpan.classList.add('pokemon-type', typeInfo.type.name);
 
                 // Tambahkan ikon untuk tipe Pokémon
-                const typeIconPath = `assets/img/pokemonType/Pokemon_Type_Icon_${typeName}.svg`;
+                const typeIconPath = `../assets/img/pokemonType/Pokemon_Type_Icon_${typeName}.svg`;
                 const typeIcon = document.createElement('img');
                 typeIcon.src = typeIconPath;
                 typeIcon.alt = `${typeName} Icon`;
@@ -156,7 +156,7 @@ async function searchPokemon(query) {
             typeSpan.classList.add('pokemon-type', typeInfo.type.name);
 
             // Tambahkan ikon untuk tipe Pokémon
-            const typeIconPath = `assets/img/pokemonType/Pokemon_Type_Icon_${typeName}.svg`;
+            const typeIconPath = `../assets/img/pokemonType/Pokemon_Type_Icon_${typeName}.svg`;
             const typeIcon = document.createElement('img');
             typeIcon.src = typeIconPath;
             typeIcon.alt = `${typeName} Icon`;
@@ -215,7 +215,7 @@ async function showPokemonDetails(pokemonId) {
             const typeName = typeInfo.type.name.charAt(0).toUpperCase() + typeInfo.type.name.slice(1);
 
             // Tambahkan ikon SVG berdasarkan tipe
-            const typeIconPath = `assets/img/pokemonType/Pokemon_Type_Icon_${typeName}.svg`; // Sesuaikan path
+            const typeIconPath = `../assets/img/pokemonType/Pokemon_Type_Icon_${typeName}.svg`; // Sesuaikan path
 
             // Tambahkan ikon dan nama tipe dalam elemen span
             modalPokemonTypes.innerHTML += `
@@ -237,7 +237,7 @@ async function showPokemonDetails(pokemonId) {
             weaknessElement.classList.add('weakness', weakness.toLowerCase());
 
             // Tambahkan ikon untuk weakness
-            const weaknessIconPath = `assets/img/pokemonType/Pokemon_Type_Icon_${weakness.charAt(0).toUpperCase() + weakness.slice(1)}.svg`;
+            const weaknessIconPath = `../assets/img/pokemonType/Pokemon_Type_Icon_${weakness.charAt(0).toUpperCase() + weakness.slice(1)}.svg`;
             const weaknessIcon = document.createElement('img');
             weaknessIcon.src = weaknessIconPath;
             weaknessIcon.alt = `${weakness} Icon`;
@@ -262,7 +262,7 @@ async function showPokemonDetails(pokemonId) {
                 strengthElement.classList.add('strength', strength.toLowerCase());
 
                 // Tambahkan ikon untuk strength
-                const strengthIconPath = `assets/img/pokemonType/Pokemon_Type_Icon_${strength.charAt(0).toUpperCase() + strength.slice(1)}.svg`;
+                const strengthIconPath = `../assets/img/pokemonType/Pokemon_Type_Icon_${strength.charAt(0).toUpperCase() + strength.slice(1)}.svg`;
                 const strengthIcon = document.createElement('img');
                 strengthIcon.src = strengthIconPath;
                 strengthIcon.alt = `${strength} Icon`;
@@ -374,7 +374,7 @@ async function showPokemonDetails(pokemonId) {
         cryContainer.innerHTML = ''; // Bersihkan cry sebelumnya jika ada
 
         const cryAudio = document.createElement('audio');
-        cryAudio.src = `assets/audio/pokemonCries/${pokemonDetails.id}.ogg`; // Path menuju file audio berdasarkan ID Pokémon
+        cryAudio.src = `../assets/audio/pokemonCries/${pokemonDetails.id}.ogg`; // Path menuju file audio berdasarkan ID Pokémon
         cryAudio.id = 'pokemon-cry-audio';
 
         // Tambahkan tombol play untuk audio cry
@@ -550,7 +550,7 @@ function displayMoves(moves) {
                 moveTypeContainer.classList.add('move-type-container');
 
                 // Ikon tipe berdasarkan tipe move
-                const typeIconPath = `assets/img/pokemonType/Pokemon_Type_Icon_${moveDetails.type.name.charAt(0).toUpperCase() + moveDetails.type.name.slice(1)}.svg`;
+                const typeIconPath = `../assets/img/pokemonType/Pokemon_Type_Icon_${moveDetails.type.name.charAt(0).toUpperCase() + moveDetails.type.name.slice(1)}.svg`;
                 const moveTypeIcon = document.createElement('img');
                 moveTypeIcon.src = typeIconPath;
                 moveTypeIcon.alt = `${moveDetails.type.name} Icon`;

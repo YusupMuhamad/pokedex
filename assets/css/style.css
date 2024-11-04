@@ -32,7 +32,7 @@
 }
 
 .pokemon-item {
-  background-image: url('./img/PokeBall.png'); /* Gambar latar belakang */
+  background-image: url('../img/PokeBall.png'); /* Gambar latar belakang */
   background-size: 80%; /* Sesuaikan gambar dengan ukuran elemen */
   background-position: center 60px; /* Pindahkan ke atas */
   background-repeat: no-repeat; /* Jangan ulang gambar */
@@ -142,7 +142,7 @@ body {
   align-items: center;
   padding: 20px;
   background-color: #f2f2f2;
-  background-image: url('./img/wallpaper.jpg'); /* Ganti dengan path gambar wallpaper Anda */
+  background-image: url('../img/wallpaper.jpg'); /* Ganti dengan path gambar wallpaper Anda */
   background-size: cover; /* Sesuaikan ukuran gambar agar memenuhi seluruh layar */
   background-repeat: no-repeat; /* Jangan ulang gambar */
   background-attachment: fixed; /* Tetap pada posisi meskipun di-scroll */
@@ -353,7 +353,7 @@ h3 {
   position: relative; /* Membuat posisi relatif untuk menempatkan gambar */
   width: 200px; /* Sesuaikan lebar kontainer */
   height: 200px; /* Sesuaikan tinggi kontainer */
-  background-image: url('./img/pokeball.png'); /* Gambar latar belakang Poké Ball */
+  background-image: url('../img/pokeball.png'); /* Gambar latar belakang Poké Ball */
   background-size: cover; /* Sesuaikan gambar dengan ukuran kontainer */
   background-position: center; /* Posisikan gambar di tengah */
   border-radius: 10px; /* Sudut yang membulat */
@@ -395,7 +395,7 @@ h3 {
 
 /* Gaya untuk tombol toggle yang berbentuk gambar */
 .toggle-button {
-  background-image: url('./img/shiny.png'); /* Gambar sebagai latar belakang */
+  background-image: url('../img/shiny.png'); /* Gambar sebagai latar belakang */
   background-size: cover; /* Sesuaikan gambar dengan ukuran tombol */
   width: 150px; /* Lebar tombol */
   height: 35px; /* Tinggi tombol */
@@ -421,7 +421,7 @@ h3 {
 }
 
 .cry-button {
-  background-image: url('./img/audio-waves1.png');
+  background-image: url('../img/audio-waves1.png');
   background-size: cover;
   background-position: center 50px; /* Memposisikan latar belakang di bagian atas tengah */
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transisi untuk efek hover */
