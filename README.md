@@ -29,6 +29,6 @@ Sebuah proyek untuk penggemar Pokémon yang ingin menjelajahi dunia Pokémon den
 
 
 ### ✨ Screenshot
-<img src="./assets/img/screenshot/1.png" style="width: 800px; height: 800px">
-<img src="./assets/img/screenshot/2.png">
-<img src="./assets/img/screenshot/3.png">
+<img src="./assets/img/screenshot/1.png" style="width: 70%; height: 70%">
+<img src="./assets/img/screenshot/2.png" style="width: 70%; height: 70%">
+<img src="./assets/img/screenshot/3.png" style="width: 70%; height: 70%">
