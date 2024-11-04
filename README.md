@@ -25,4 +25,8 @@ Sebuah proyek untuk penggemar Pokémon yang ingin menjelajahi dunia Pokémon den
 
 ---
 
-> **Status**: Website ini masih dalam tahap pengembangan. Fitur baru dan peningkatan akan ditambahkan secara berkala. 
+> **Status**: Website ini masih dalam tahap pengembangan. Fitur baru dan peningkatan akan ditambahkan secara berkala.
+
+
+### ✨ Screenshot
+<img src="./assets/img/screenshot/1.png">
