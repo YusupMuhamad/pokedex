@@ -1,28 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pokémon Items</title>
-    <link rel="stylesheet" href="../assets/css/item.css">
-</head>
-<body>
+    <link rel="stylesheet" href="../assets/css/item.css" />
+  </head>
+  <body>
     <div class="navbar" id="navbar">
-        <ul>
-            <li><a href="../index.html"><img src="../assets/img/pokeicon.png" class="img-icon"><span class="text"><strong>Pokémon</strong></span></a></li>
-            <li><a href="./item.html"><img src="../assets/img/itemicon.png" class="img-icon"><span class="text"><stong>Item</stong></span></a></li>
-            <li><a href="./item.html"><img src="../assets/img/gen-icon.png" class="img-icon"><span class="text"><stong>Generations</stong></span></a></li>
-        </ul>
+      <ul>
+        <li>
+          <a href="../index.html"
+            ><img src="../assets/img/pokeicon.png" class="img-icon" /><span
+              class="text"
+              ><strong>Pokémon</strong></span
+            ></a
+          >
+        </li>
+        <li>
+          <a href="./item.html"
+            ><img src="../assets/img/gen-icon.png" class="img-icon" /><span
+              class="text"
+              ><strong>Generations</strong></span
+            ></a
+          >
+        </li>
+        <li>
+          <a href="./item.html"
+            ><img src="../assets/img/itemicon.png" class="img-icon" /><span
+              class="text"
+              ><strong>Item</strong></span
+            ></a
+          >
+        </li>
+      </ul>
     </div>
 
     <header class="header">
-        <h1><span class="poke">Poké</span><span class="item">Item</span></h1>
+      <h1><span class="poke">Poké</span><span class="item">Item</span></h1>
+      <div class="category-filter">
+        <label for="categorySelect">Filter:</label>
+        <select id="categorySelect">
+          <option value="default">All</option>
+          <option value="pokeballs">Poké Balls</option>
+          <option value="berries">Berries</option>
+          <!-- Tambahkan kategori lainnya sesuai kebutuhan -->
+        </select>
+      </div>
     </header>
 
     <main class="item-container" id="item-container">
-        <!-- Kartu item akan ditambahkan di sini secara dinamis dengan JavaScript -->
+      <!-- Kartu item akan ditambahkan di sini secara dinamis dengan JavaScript -->
     </main>
 
+    <!-- Tombol More Items -->
+    <div class="more-items-container">
+      <button id="moreItemsButton" class="more-items-button">More Items</button>
+    </div>
+
+    <!-- Tombol Panah Ke Atas -->
+    <button id="backToTopButton" class="back-to-top-button">&#8679;</button>
+
+    <!-- Modal Detail -->
+    <div id="itemModal" class="modal">
+      <div class="modal-content">
+        <span class="close-button" id="closeModal">&times;</span>
+        <p id="modalItemId" class="modal-item-id"></p>
+        <img
+          id="modalItemImage"
+          class="modal-item-image"
+          src=""
+          alt="Item Image"
+        />
+        <h2 id="modalItemName" class="modal-item-name"></h2>
+        <p id="modalItemDescription" class="modal-item-description"></p>
+      </div>
+    </div>
+
     <script src="../assets/js/item.js"></script>
-</body>
+  </body>
 </html>
