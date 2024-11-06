@@ -1,11 +1,17 @@
+// Event yang dipicu ketika halaman dimuat
 document.addEventListener("DOMContentLoaded", () => {
     let offset = 0;
-    fetchItems(offset); // Default fetch
+    let searchMode = false; // Mode pencarian
+    fetchItems(offset); // Ambil item default saat pertama kali dimuat
+
     document.getElementById("categorySelect").addEventListener("change", handleCategoryChange);
     document.getElementById("moreItemsButton").addEventListener("click", () => {
         offset += 20;
         fetchItems(offset);
     });
+
+    // Event untuk pencarian item
+    document.getElementById("searchInput").addEventListener("input", handleSearch);
 });
 
 async function handleCategoryChange(event) {
@@ -24,6 +30,7 @@ async function handleCategoryChange(event) {
     }
 }
 
+// Fungsi untuk mengambil item default dalam jumlah 20 dan menampilkan secara berurutan
 async function fetchItems(offset = 0) {
     const itemContainer = document.getElementById('item-container');
     const response = await fetch(`https://pokeapi.co/api/v2/item?offset=${offset}&limit=20`);
@@ -35,12 +42,12 @@ async function fetchItems(offset = 0) {
         createItemCard(itemDetail); // Panggil fungsi untuk membuat kartu dengan detail lengkap
     });
 
-    // Jika kurang dari 20 item, sembunyikan tombol "More Items"
-    if (data.results.length < 20) {
+    if (data.results.length < 20 || searchMode) {
         document.getElementById("moreItemsButton").style.display = "none";
+    } else {
+        document.getElementById("moreItemsButton").style.display = "block";
     }
 }
-
 async function fetchItemsByCategory(category) {
     const categoryUrlMap = {
         "pokeballs": "https://pokeapi.co/api/v2/item-category/34", // URL kategori Poké Balls
@@ -58,12 +65,49 @@ async function fetchItemsByCategory(category) {
     });
 }
 
+// Fungsi untuk menangani pencarian item
+async function handleSearch(event) {
+    const query = event.target.value.trim();
+    const itemContainer = document.getElementById('item-container');
+
+    if (query) {
+        searchMode = true;
+        itemContainer.innerHTML = ""; // Kosongkan container item sebelum menampilkan hasil pencarian
+        fetchSearchedItems(query); // Ambil item yang sesuai dengan pencarian
+    } else {
+        searchMode = false;
+        itemContainer.innerHTML = ""; // Kosongkan container untuk memastikan tampilan benar-benar reset
+        offset = 0; // Reset offset ke 0
+        fetchItems(offset); // Tampilkan item default
+        
+    }
+}
+
+// Fungsi untuk mengambil 1000 item ketika mencari, tetapi hanya menampilkan 20 pertama
+async function fetchSearchedItems(query) {
+    const itemContainer = document.getElementById('item-container');
+    const response = await fetch(`https://pokeapi.co/api/v2/item?offset=0&limit=1000`);
+    const data = await response.json();
+
+    const filteredItems = data.results.filter(item => item.name.includes(query.toLowerCase()));
+    const limitedItems = filteredItems.slice(0, 20); // Ambil hanya 20 pertama untuk ditampilkan
+
+    limitedItems.forEach(async (item) => {
+        const itemDetailResponse = await fetch(item.url);
+        const itemDetail = await itemDetailResponse.json();
+        createItemCard(itemDetail); // Buat kartu item
+    });
+
+    document.getElementById("moreItemsButton").style.display = "none"; // Sembunyikan tombol "More Items" dalam mode pencarian
+}
+
+// Fungsi untuk membuat kartu item
 function createItemCard(itemDetail) {
     const itemContainer = document.getElementById('item-container');
 
     const itemCard = document.createElement('div');
     itemCard.classList.add('item-card');
-    itemCard.addEventListener("click", () => showModal(itemDetail)); // Memastikan itemDetail lengkap
+    itemCard.addEventListener("click", () => showModal(itemDetail));
 
     const itemId = document.createElement('p');
     itemId.classList.add('item-id');
@@ -92,6 +136,7 @@ function showModal(itemDetail) {
     document.getElementById("modalItemName").textContent = itemDetail.name.charAt(0).toUpperCase() + itemDetail.name.slice(1);
     document.getElementById("modalItemDescription").textContent = itemDetail.effect_entries[0]?.effect || "No description available.";
 }
+
 
 // Menutup modal ketika tombol close diklik
 document.getElementById("closeModal").addEventListener("click", () => {
