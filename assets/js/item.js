@@ -14,6 +14,15 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("searchInput").addEventListener("input", handleSearch);
 });
 
+// Fungsi debounce untuk menunda eksekusi fungsi pencarian
+function debounce(func, delay) {
+    let timeout;
+    return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
 async function handleCategoryChange(event) {
     const category = event.target.value;
     const itemContainer = document.getElementById('item-container');
@@ -65,7 +74,7 @@ async function fetchItemsByCategory(category) {
     });
 }
 
-// Fungsi untuk menangani pencarian item
+// Modifikasi handleSearch dengan debounce
 async function handleSearch(event) {
     const query = event.target.value.trim();
     const itemContainer = document.getElementById('item-container');
@@ -79,9 +88,11 @@ async function handleSearch(event) {
         itemContainer.innerHTML = ""; // Kosongkan container untuk memastikan tampilan benar-benar reset
         offset = 0; // Reset offset ke 0
         fetchItems(offset); // Tampilkan item default
-        
     }
 }
+
+// Terapkan debounce pada handleSearch dengan delay 300 ms
+document.getElementById("searchInput").addEventListener("input", debounce(handleSearch, 500));
 
 // Fungsi untuk mengambil 1000 item ketika mencari, tetapi hanya menampilkan 20 pertama
 async function fetchSearchedItems(query) {
