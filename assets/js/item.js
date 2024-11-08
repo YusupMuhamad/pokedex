@@ -100,7 +100,9 @@ async function fetchSearchedItems(query) {
     const response = await fetch(`https://pokeapi.co/api/v2/item?offset=0&limit=1000`);
     const data = await response.json();
 
-    const filteredItems = data.results.filter(item => item.name.includes(query.toLowerCase()));
+    // Ganti spasi pada query dengan '-' untuk mencocokkan format nama item
+    const formattedQuery = query.toLowerCase().replace(/\s+/g, '-');
+    const filteredItems = data.results.filter(item => item.name.includes(formattedQuery));
     const limitedItems = filteredItems.slice(0, 20); // Ambil hanya 20 pertama untuk ditampilkan
 
     limitedItems.forEach(async (item) => {
@@ -131,7 +133,9 @@ function createItemCard(itemDetail) {
 
     const itemName = document.createElement('p');
     itemName.classList.add('item-name');
-    itemName.textContent = itemDetail.name.charAt(0).toUpperCase() + itemDetail.name.slice(1);
+    // Mengganti "-" dengan spasi dan membuat huruf pertama menjadi kapital
+    itemName.textContent = itemDetail.name.replace(/-/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
+    
 
     itemCard.appendChild(itemId);
     itemCard.appendChild(itemImage);
@@ -144,9 +148,11 @@ function showModal(itemDetail) {
     document.getElementById("itemModal").style.display = "flex";
     document.getElementById("modalItemId").textContent = `# ${itemDetail.id}`;
     document.getElementById("modalItemImage").src = itemDetail.sprites.default;
-    document.getElementById("modalItemName").textContent = itemDetail.name.charAt(0).toUpperCase() + itemDetail.name.slice(1);
+    // Mengganti "-" dengan spasi dan membuat huruf pertama dari setiap kata menjadi kapital
+    document.getElementById("modalItemName").textContent = itemDetail.name.replace(/-/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
     document.getElementById("modalItemDescription").textContent = itemDetail.effect_entries[0]?.effect || "No description available.";
 }
+
 
 
 // Menutup modal ketika tombol close diklik
