@@ -1,0 +1,119 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f2f2f2;
+}
+
+.container {
+    width: 80%;
+    max-width: 1200px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.generation-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.generation-card {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.generation-card:hover {
+    transform: scale(1.05);
+}
+
+h2 {
+    font-size: 1.8rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.5;
+}
+/* Tambahan untuk modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 500px;
+    max-height: 90vh; /* Batas tinggi maksimal modal */
+    overflow-y: auto; /* Menambahkan scroll jika konten melebihi tinggi modal */
+    text-align: center;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+#pokemonList {
+    list-style: none;
+    padding: 0;
+}
+
+#pokemonList li {
+    font-size: 1.1rem;
+    margin: 5px 0;
+    color: #333;
+}
+
+.pokemon-columns {
+    display: flex;
+    justify-content: space-between;
+}
+
+#pokemonListLeft,
+#pokemonListRight {
+    list-style: none;
+    padding: 0;
+    width: 48%;
+}
+
+#pokemonListLeft li,
+#pokemonListRight li {
+    font-size: 1.1rem;
+    margin: 5px 0;
+    color: #333;
+}

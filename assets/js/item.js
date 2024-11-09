@@ -153,8 +153,6 @@ function showModal(itemDetail) {
     document.getElementById("modalItemDescription").textContent = itemDetail.effect_entries[0]?.effect || "No description available.";
 }
 
-
-
 // Menutup modal ketika tombol close diklik
 document.getElementById("closeModal").addEventListener("click", () => {
     document.getElementById("itemModal").style.display = "none";

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Generations</title>
+    <link rel="stylesheet" href="../assets/css/gen.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Pokémon Generations</h1>
+        <div class="generation-cards" id="generation-cards">
+            <!-- Cards akan dihasilkan oleh JavaScript -->
+        </div>
+    </div>
+
+<!-- Modal untuk detail Pokémon dalam generasi -->
+<div id="pokemonModal" class="modal">
+    <div class="modal-content">
+        <span id="closeModal" class="close">&times;</span>
+        <h2 id="modalGenerationTitle">Generation Details</h2>
+        <div class="pokemon-columns">
+            <ul id="pokemonListLeft"></ul>
+            <ul id="pokemonListRight"></ul>
+        </div>
+    </div>
+</div>
+
+
+    <script src="../assets/js/gen.js"></script>
+</body>
+</html>
