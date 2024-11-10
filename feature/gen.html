@@ -7,6 +7,30 @@
     <link rel="stylesheet" href="../assets/css/gen.css">
 </head>
 <body>
+    <!-- Navbar -->
+    <div class="navbar" id="navbar">
+        <ul>
+            <li>
+                <a href="../index.html">
+                    <img src="../assets/img/pokeicon.png" class="img-icon" />
+                    <span class="text"><strong>Pokémon</strong></span>
+                </a>
+            </li>
+            <li>
+                <a href="./gen.html">
+                    <img src="../assets/img/gen-icon.png" class="img-icon" />
+                    <span class="text"><strong>Generations</strong></span>
+                </a>
+            </li>
+            <li>
+                <a href="./item.html">
+                    <img src="../assets/img/itemicon.png" class="img-icon" />
+                    <span class="text"><strong>Item</strong></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
     <div class="container">
         <h1>Pokémon Generations</h1>
         <div class="generation-cards" id="generation-cards">
@@ -14,18 +38,17 @@
         </div>
     </div>
 
-<!-- Modal untuk detail Pokémon dalam generasi -->
-<div id="pokemonModal" class="modal">
-    <div class="modal-content">
-        <span id="closeModal" class="close">&times;</span>
-        <h2 id="modalGenerationTitle">Generation Details</h2>
-        <div class="pokemon-columns">
-            <ul id="pokemonListLeft"></ul>
-            <ul id="pokemonListRight"></ul>
+    <!-- Modal untuk detail Pokémon dalam generasi -->
+    <div id="pokemonModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal" class="close">&times;</span>
+            <h2 id="modalGenerationTitle">Generation Details</h2>
+            <div class="pokemon-columns">
+                <ul id="pokemonListLeft"></ul>
+                <ul id="pokemonListRight"></ul>
+            </div>
         </div>
     </div>
-</div>
-
 
     <script src="../assets/js/gen.js"></script>
 </body>
